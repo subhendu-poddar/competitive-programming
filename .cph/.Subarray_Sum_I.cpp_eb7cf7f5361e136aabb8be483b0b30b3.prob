@@ -1,0 +1,1 @@
+{"name":"Local: Subarray_Sum_I","url":"/home/subhendu/cp/Subarray_Sum_I.cpp","tests":[{"id":1615217092616,"input":"5 7\n2 4 1 2 7","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/subhendu/cp/Subarray_Sum_I.cpp","group":"local","local":true}

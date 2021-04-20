@@ -20,15 +20,37 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-void solve() {
-    ll k,temp,sum,res,ans,n;
-    
+ll solve() {
+    ll k,temp,sum,res,ans=0,n;
+    cin>>n;
+    vv<ll> a(n);
+    FOR(i,0,n){
+        cin>>a[i];
+    }
+    FOR(i,0,n-1){
+        ll small = min(a[i],a[i+1]);
+        ll large=max(a[i],a[i+1]);
+        if(large<=2*small) continue;
+        else{
+            small*=2;
+            while(small<large){
+                small*=2;
+                ans++;
+            }
+        }
+    }
+    return ans;
 
 
 }
 int main(){
     IOS;
-    solve();
-    //cout << solve() << endl;
+    ll t;
+    //t=1;
+    cin >> t;
+    For(i,1,t) {
+        //solve();
+        cout << solve() << endl;
+    }
     return 0;
 }

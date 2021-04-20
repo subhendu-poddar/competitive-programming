@@ -9,46 +9,21 @@ using namespace std;
 //-------------------------------------------------//
 
 void solve() {
-	ll i,j,temp,sum,res,ans,n;
-	cin>>n;
-	ll arr[n];
-	FOR(i,0,n){
-		cin>>arr[i];
-	}
-	ans=n*(n+1)/2;
-	vector<pair<ll,bool> > v;
-	FOR(i,0,n){
-		if((arr[i]%4)==0){
-			v.push_back({i,false});
-		}
-		else if((arr[i]%2)==0){
-			v.push_back({i,true});
-		}
-	}
-	if(v.size()==1 && v[0].second){
-		ans-=(v[0].first+1)*(n-v[0].first);
-	}
-	else if(v.size()>1){
-		FOR(i,1,v.size()-1){
-			if(v[i].second){
-				ans-=(v[i].first-v[i-1].first)*(v[i+1].first-v[i].first);
-			}
-		}
-		if(v[0].second){
-			ans-=(v[0].first+1)*(v[1].first-v[0].first);
-		}
-		if(v[v.size()-1].second){
-			ans-=(n-v[v.size()-1].first)*(v[v.size()-1].first-v[v.size()-2].first);
-		}
-	}
-
+	vector<int> v1,v2,v3;
+	v1.push_back(3);
+	v1.push_back(4);
+	v1.push_back(5);
+	v2.push_back(6);
+	v2.push_back(7);
+	v2.push_back(8);
 
 	
-	cout<<ans<<endl;
+	//v3=v1+v2;
 
-
-	
-
+	for(int i=0;i<v3.size();i++){
+		cout<<v3[i]<<' ';
+	}
+	cout<<endl;
 }
 
 //-------------------------------------------------//
@@ -59,8 +34,8 @@ int main()
 	//freopen("output.txt","w",stdout);	
 	IOS;
 	ll t,i;
-	//t=1;
-	cin >> t;
+	t=1;
+	//cin >> t;
 	FOR(i,0,t) {
 		solve();
 	}
