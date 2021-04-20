@@ -64,10 +64,12 @@ int solve(vector<int>& A, vector<int>& B, vector<int>& C){
 
 
 int main(){
-
-
-
-
-
+    int n;
+    cin >> n;
+    vector<int> A(n), B(n), C(n);
+    FOR(i,0,n){
+        cin >> A[i] >> B[i] >> C[i];
+    }
+    solve(A,B,C);
     return 0;
 }
