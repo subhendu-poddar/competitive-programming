@@ -70,6 +70,6 @@ int main(){
     FOR(i,0,n){
         cin >> A[i] >> B[i] >> C[i];
     }
-    solve(A,B,C);
+    cout << solve(A,B,C) << endl;
     return 0;
 }
