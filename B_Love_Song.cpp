@@ -20,56 +20,51 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
+void solve() {
+    ll k,temp,sum,res,ans,n,q,x,y;
+    cin >> n >> q;
     string s;
-    cin>>s;
+    cin >> s;
+    s = '0'+s;
+    vv<vv<ll>> cnt(26,vv<ll> (n+1,0));
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
-
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
-        }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
-        }
+    For(i,1,n){
+        cnt[s[i]-97][i]++;
     }
 
-    return s.substr(st,end-st+1);
+    For(i,0,25){
+        For(j,1,n){
+            cnt[i][j] += cnt[i][j-1];
+        }
+    }
+    // FOR(i,0,3){
+    //     For(j,1,n){
+    //         cout << cnt[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
+
+    while(q--){
+        cin >> x >> y;
+        ans = 0;
+        FOR(i,0,26){
+            ans += (cnt[i][y]-cnt[i][x-1])*(i+1);
+        }
+        cout << ans << endl;
+    }
+
+
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    solve();
+    // //t=1;
+    // cin >> t;
+    // For(i,1,t) {
+    //     solve();
+    //     //cout << solve() << endl;
+    // }
     return 0;
 }

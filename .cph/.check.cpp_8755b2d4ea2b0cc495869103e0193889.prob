@@ -1,0 +1,1 @@
+{"name":"Local: check","url":"/home/subhendu/cp/check.cpp","tests":[{"id":1627193793634,"input":"1\n4\na b a b\n1 2\n2 3\n2 4","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/subhendu/cp/check.cpp","group":"local","local":true}

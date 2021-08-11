@@ -20,56 +20,51 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
+int rem(int pos, char which){
+    if(which=='a'){
+        return (9-pos)/2;
+    }
+    return (10-pos)/2;
+}
+
+int solve() {
+    ll k,temp,sum,res,ans,n;
     string s;
-    cin>>s;
+    cin >> s;
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
+    int ac=0, bc=0, ad=0, bd=0;
 
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
+    FOR(i,0,s.size()){
+        if(s[i]=='1'){
+            if(i%2==0) ac++;
+            else bc++;
         }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
+        else if(s[i]=='?'){
+            if(i%2==0) ad++;
+            else bd++;
         }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
+        
+        if((ac+ad)>(bc+rem(i,'b'))){
+            return i+1;
+        }
+        if((bc+bd)>(ac+rem(i,'a'))){
+            return i+1;
         }
     }
+    return 10;
 
-    return s.substr(st,end-st+1);
+
+
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    //t=1;
+    cin >> t;
+    For(i,1,t) {
+        // solve();
+        cout << solve() << endl;
+    }
     return 0;
 }

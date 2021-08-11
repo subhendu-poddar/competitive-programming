@@ -20,56 +20,40 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
-
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
-
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
+void solve() {
+    ll k,temp,sum,res,ans,n;
+    cin >> n;
+    vv<vv<ll>> a(n, vv<ll> (3)), dp(n, vv<ll>(3,0));
+    FOR(i,0,n){
+        FOR(j,0,3){
+            cin >> a[i][j];
+            if(i==0)
+                dp[i][j]=a[i][j];
         }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
+    }
+    FOR(i,1,n){
+        FOR(j1,0,3){
+            FOR(j2,0,3){
+                if(j1==j2) continue;
+                dp[i][j1] = max(dp[i][j1], dp[i-1][j2]);
             }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
+            dp[i][j1]+=a[i][j1];
         }
     }
 
-    return s.substr(st,end-st+1);
+    cout << max(dp[n-1][0], max(dp[n-1][1], dp[n-1][2])) << endl;
+
+
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    // //t=1;
+    // cin >> t;
+    // For(i,1,t) {
+        solve();
+    //     //cout << solve() << endl;
+    // }
     return 0;
 }

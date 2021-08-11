@@ -20,56 +20,52 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
+void solve() {
+    ll k,temp,sum,res=0,ans=1,n;
+    cin >> n;
+    unordered_map<ll,ll> mp;
+    vv<ll> a(n), b(n);
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
+    FOR(i,0,n){
+        cin >> a[i];
 
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
+    }
+    FOR(i,0,n){
+        cin >> b[i];
+        mp[a[i]]=b[i];
+    }
+    vv<bool> vis(n+1,false);
+
+    For(i,1,n){
+        if(vis[i]) continue;
+        res++;
+        temp=mp[i];
+        vis[i]=true;
+
+        while(temp!=i){
+            vis[temp]=true;
+            temp = mp[temp];
         }
-        t1++;
-        t2--;
 
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
+    }
+    
 
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
-        }
+    while(res--){
+        ans = (ans*2)%mod;
     }
 
-    return s.substr(st,end-st+1);
+    cout << ans << endl;
+
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    //t=1;
+    cin >> t;
+    For(i,1,t) {
+        solve();
+        //cout << solve() << endl;
+    }
     return 0;
 }

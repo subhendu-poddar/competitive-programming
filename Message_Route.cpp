@@ -20,56 +20,68 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
+vv<vv<int>> adj(200001, vv<int>());
+stack<int> st;
+int n,m;
 
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
-        }
-        t1++;
-        t2--;
+void find(int end, stack<int> s, vv<bool> vis){
+    s.push(end);
 
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
+    if(end==1){
+        if(st.empty() || st.size()>s.size()){
+            st=s;
         }
     }
+    FOR(i,0,adj[end].size()){
+        int k = adj[end][i];
 
-    return s.substr(st,end-st+1);
+        if(!vis[k]){
+            vis[k]=true;
+            find(k, s, vis);
+            vis[k]=false;
+        }
+    }
+}
+
+
+
+void solve() {
+    cin >> n >> m;
+    
+    int x,y;
+    FOR(i,0,m){
+        cin >> x >> y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+
+    int ans=0;
+
+    stack<int> s;
+
+    vv<bool> vis(n+1, false);
+    vis[n]=true;
+
+    find(n,s,vis);
+
+    if(st.empty()){
+        cout << "IMPOSSIBLE" << endl;
+    }
+    else{
+        cout << st.size() << endl;
+        while(!st.empty()){
+            cout << st.top() << " ";
+            st.pop();
+        }
+        cout << endl;
+    }
+
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    solve();
+    //cout << solve() << endl;
     return 0;
 }

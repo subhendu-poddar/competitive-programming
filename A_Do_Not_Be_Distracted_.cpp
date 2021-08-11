@@ -20,56 +20,32 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
+void solve() {
+    ll k,temp,sum,res,ans,n;
     string s;
-    cin>>s;
-
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
-
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
+    cin >> n >> s;
+    unordered_map<char,bool> mp;
+    mp[s[0]]=true;
+    FOR(i,1,n){
+        if(s[i]==s[i-1]){
+            continue;
         }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
+        if(mp[s[i]]) {
+            cout << "NO" << endl;
+            return;
         }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
-        }
+        mp[s[i]]=true;
     }
-
-    return s.substr(st,end-st+1);
-
+    cout << "YES" << endl;
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    //t=1;
+    cin >> t;
+    For(i,1,t) {
+        solve();
+        //cout << solve() << endl;
+    }
     return 0;
 }

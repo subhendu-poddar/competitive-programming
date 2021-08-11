@@ -20,56 +20,58 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
+int n,m;
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
-
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
-        }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
-        }
+struct fenwickTree {
+    
+    vv<ll> arr;
+    fenwickTree(int n){
+        arr.resize(n+1,INT_MAX);
     }
 
-    return s.substr(st,end-st+1);
+    void build(int pos, int val){
+        while(pos<=n){
+            arr[pos] += val;
+            pos += pos&(-pos);
+        }
+    }
+    void update(int pos, int change) {
+        build(pos,cahnge);
+    }
+    ll getmin(int pos){
+        ll sum=0;
+        while(pos>0){
+            sum += arr[pos];
+            pos -= pos&(-pos);
+        }
+        return sum;
+    }
+    ll rangeSum(int x, int y){
+        return getsum(y)-getsum(x-1);
+    }
+};
+typedef struct fenwickTree fenwickTree;
 
+void solve() {
+    ll k;
+    cin >> n >> m;
+    vv<int> a(n);
+    fenwickTree ft(n);
+
+    FOR(i,0,n){
+        cin >> a[i];
+        ft.build(i+1,a[i]);
+    }
+    int z,x,y;
+    while(m--){
+        cin >> x >> y;
+        // if(z==1) ft.update(x,y);
+        cout << ft.rangeMin(x,y) << endl;
+    }
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    solve();
+    //cout << solve() << endl;
     return 0;
 }

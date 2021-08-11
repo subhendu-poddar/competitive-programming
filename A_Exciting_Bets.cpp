@@ -20,56 +20,52 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
+void solve() {
+    ll k,temp,sum,res,ans,n;
+    ll x,y;
+    cin >> x >> y;
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
+    if(x>y){
+        swap(x,y);
+    }
 
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
+    if(x==y) {
+        ans=0;
+        temp=0;
+    }
+    else if(x%2==y%2){
+        if(2*x<y){
+            temp = y-2*x;
+            ans = x+temp;
         }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
+        else{
+            temp = 2*x-y;
+            ans = x-temp;
         }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
+    }
+    else {
+        if(2*y>3*x){
+            temp = 2*y-3*x;
+            ans = (x+temp)/2;
+        }
+        else{
+            temp = 3*x-2*y;
+            ans = (x - temp)/2;
         }
     }
 
-    return s.substr(st,end-st+1);
+
+    cout << ans << ' ' << temp << endl;
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    //t=1;
+    cin >> t;
+    For(i,1,t) {
+        solve();
+        //cout << solve() << endl;
+    }
     return 0;
 }

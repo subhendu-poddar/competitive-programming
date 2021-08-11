@@ -20,56 +20,46 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
+void solve() {
+    ll k,temp,sum,res,ans,n;
+    unordered_map<ll,bool> mp;
+    cin >> n;
+    vv<ll> a(n);
+    FOR(i,0,n){
+        cin >> a[i];
+    }
+    sort(a.begin(), a.end());
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
+    mp[0]=true;
 
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
-        }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
+    FOR(i,0,n){
+        for(auto val:mp){
+            if(val.ff==a[i]){
+                cout << "YES" << endl;
+                return;
             }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
+        }
+        vv<ll> v;
+        for(auto val:mp){
+            v.pb(val.ff-a[i]);
+            v.pb(val.ff+a[i]);
+        }
+        for(auto val:v){
+            mp[val]=true;
         }
     }
 
-    return s.substr(st,end-st+1);
+    cout << "NO" << endl;
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    //t=1;
+    cin >> t;
+    For(i,1,t) {
+        solve();
+        //cout << solve() << endl;
+    }
     return 0;
 }

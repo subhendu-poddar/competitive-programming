@@ -20,56 +20,37 @@ ll lcm(ll x,ll y) {return (x*y)/__gcd(x,y);}
 //---------------------------------------------------------------------------//
 //--------------------------SUBHENDU PODDAR----------------------------------//
 //---------------------------------------------------------------------------//
-string solve() {
-    int k,temp,sum,res,ans=1,n;
-    int st=0,end=0;
-    int t1,t2;
-    string s;
-    cin>>s;
+void solve() {
+    ll k,temp,sum=0,res,ans=0,n;
+    cin >> n;
+    min_heap h;
 
-    FOR(i,1,s.size()-1){
-        t1 = i-1;
-        t2=i+1;
-        if(ans>=2*min(i,n-i)+1) continue;
+    vv<ll> a(n);
+    FOR(i,0,n){
+        cin >> k;
+        h.push(k);
+        sum += k;
+        ans++;
 
-        while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-            t1--;
-            t2++;
-        }
-        t1++;
-        t2--;
-
-        if(ans<t2-t1+1){
-            ans=t2-t1+1;
-            st=t1;
-            end=t2;
-        }
-        if(s[i]==s[i+1]){
-            t1 = i-1;
-            t2 = i+2;
-            if(ans>=2*min(i,n-i)+1) continue;
-
-            while(t1>=0 && t2<s.size() && s[t1]==s[t2]){
-                t1--;
-                t2++;
-            }
-            t1++;
-            t2--;
-
-            if(ans<t2-t1+1){
-                ans=t2-t1+1;
-                st=t1;
-                end=t2;
-            }
+        if(sum<0){
+            temp = h.top();
+            h.pop();
+            sum -= temp;
+            ans--;
         }
     }
+    cout << ans << endl;
 
-    return s.substr(st,end-st+1);
 
 }
 int main(){
     IOS;
-    //solve();
-    cout << solve() << endl;
+    ll t;
+    t=1;
+    // cin >> t;
+    For(i,1,t) {
+        solve();
+        //cout << solve() << endl;
+    }
     return 0;
 }
