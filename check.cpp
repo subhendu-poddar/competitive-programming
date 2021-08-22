@@ -55,11 +55,14 @@ void solve() {
 
 int main() {
 
-	int test;
-	cin >> test;
-	while(test--){
-		solve();
-	}
+	int* k = new int [4];
+	k[0]=0, k[1]=1, k[2]=2;
+	k = new int [1];
+
+	cout << k[4] << endl;
+
+
+
 	return 0;
 
 }
